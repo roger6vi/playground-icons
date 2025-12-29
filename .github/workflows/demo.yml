@@ -1,0 +1,12 @@
+name: Probando Actions
+run-name: ${{ github.actor }} esta probando GitHub Actions 🚀
+
+# Se ejecuta cuando haces push a cualquier rama
+on: [push]
+
+jobs:
+  verificar-conexion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mensaje de saludo
+        run: echo "¡Hola! La configuración de GitHub Actions funciona correctamente."
