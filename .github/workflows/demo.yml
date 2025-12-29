@@ -1,12 +1,16 @@
-name: Icons  Actions
-run-name: ${{ github.actor }} esta probando GitHub Actions 🚀
+name: ICONS Actions
+run-name: ${{ github.actor }} revisando archivos 📂
 
-# Se ejecuta cuando haces push a cualquier rama
 on: [push]
 
 jobs:
-  verificar-conexion:
+  explorar-codigo:
     runs-on: ubuntu-latest
     steps:
-      - name: Mensaje de saludo
-        run: echo "¡Hola! La configuración de GitHub Actions funciona correctamente."
+      # Paso 1: Descargar el código del repositorio al servidor
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      # Paso 2: Listar los archivos para verificar que están ahí
+      - name: Ver archivos descargados
+        run: ls -R
