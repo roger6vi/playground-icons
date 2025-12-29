@@ -1,4 +1,4 @@
-name: Probando Actions
+name: Icons  Actions
 run-name: ${{ github.actor }} esta probando GitHub Actions 🚀
 
 # Se ejecuta cuando haces push a cualquier rama
