@@ -1,11 +1,9 @@
 name: Sincronizar Iconos de Figma
 run-name: Actualizando iconos desde Figma 🎨
 
-# Activación manual (botón) para que lo lances cuando quieras
 on: 
   workflow_dispatch:
 
-# Permisos explícitos para poder hacer "git push"
 permissions:
   contents: write
 
@@ -20,16 +18,25 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      # 2. Instalamos la herramienta
+      # 2. Instalamos la herramienta MANUALMENTE (Más estable que Brew)
       - name: 🛠 Instalar figma-export
         run: |
-          brew install redmadrobot/tap/figma-export
-          figma-export --version
+          # Descargar la última versión oficial
+          curl -LO https://github.com/RedMadRobot/figma-export/releases/latest/download/figma-export.zip
+          
+          # Descomprimir en una carpeta llamada 'tool'
+          unzip figma-export.zip -d tool
+          
+          # Dar permisos de ejecución
+          chmod +x tool/figma-export
+          
+          # Verificar que funciona
+          ./tool/figma-export --version
 
       # 3. Ejecutamos la exportación
-      # Al no pasar variables, buscará el token en tu figma-export.yaml
+      # Usamos ./tool/ delante para decirle dónde está la herramienta
       - name: 🚀 Generar iconos
-        run: figma-export icons
+        run: ./tool/figma-export icons
 
       # 4. Commit y Push de los cambios
       - name: 💾 Guardar cambios
@@ -37,4 +44,4 @@ jobs:
         with:
           commit_message: "🎨 Diseño: Iconos actualizados automáticamente desde Figma"
           branch: main
-          file_pattern: '.' # Agrega todos los archivos modificados
+          file_pattern: '.'
